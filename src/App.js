@@ -4,14 +4,20 @@ import './App.css';
 function Header(props) {
   return (
     <header>
-      <h1><a href="/">{props.title}</a></h1>
+      <h1><a href="/" onClick={(event) => {
+        event.preventDefault();
+        props.onChangeMode();
+      }}>{props.title}</a></h1>
     </header>
   )
 }
 
 function Nav(props) {
   const lis = props.topics.map(topic => {
-    return <li key={topic.id}><a href={`/read/${topic.id}`}>{topic.title}</a></li>
+    return <li key={topic.id}><a id={topic.id} href={`/read/${topic.id}`} onClick={event => {
+      event.preventDefault()
+      props.onChangeMod(event.target.id)
+    }}>{topic.title}</a></li>
   })
   return (
     <nav>
@@ -45,8 +51,12 @@ function App() {
   ]
   return (
     <div className="App">
-      <Header title="WEB"></Header>
-      <Nav topics={topics}></Nav>
+      <Header title="WEB" onChangeMode={() => {
+        alert('### I\'m header')
+        }}></Header>
+      <Nav topics={topics} onChangeMod={(id) => {
+        alert(id);
+      }}></Nav>
       <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
   );
