@@ -105,6 +105,15 @@ function App() {
           setMode('UPDATE')
         }}>Update</a>
       </li>
+      <li>
+        <button onClick={()=>{
+          const newTopics = topics.filter(topic=>{
+            return topic.id !== id
+          })
+          setTopics(newTopics)
+          setMode('WELCOME')
+        }}>Delete</button>
+      </li>
     </>
   } else if(mode === 'CREATE') {
     content = <Create onCreate={(title, body) => {
